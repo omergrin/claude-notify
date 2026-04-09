@@ -1,0 +1,14 @@
+{
+  "name": "claude-notify",
+  "owner": {
+    "name": "Omer Grinboim"
+  },
+  "plugins": [
+    {
+      "name": "claude-notify",
+      "source": "./",
+      "description": "macOS desktop notifications for Claude Code with click-to-focus support",
+      "version": "1.0.0"
+    }
+  ]
+}
