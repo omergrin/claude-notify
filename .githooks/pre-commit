@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+# Pre-commit hook: validates shell scripts and JSON files before committing.
+set -euo pipefail
+
+ROOT="$(git rev-parse --show-toplevel)"
+failed=0
+
+# --- ShellCheck ---
+if command -v shellcheck &>/dev/null; then
+  for f in "$ROOT"/hooks/scripts/*.sh; do
+    [ -f "$f" ] || continue
+    if ! shellcheck "$f"; then
+      echo "pre-commit: shellcheck failed on $f" >&2
+      failed=1
+    fi
+  done
+else
+  echo "pre-commit: shellcheck not installed, skipping (brew install shellcheck)" >&2
+fi
+
+# --- JSON validation ---
+if command -v jq &>/dev/null; then
+  for f in "$ROOT"/hooks/hooks.json "$ROOT"/.claude-plugin/plugin.json; do
+    [ -f "$f" ] || continue
+    if ! jq empty "$f" 2>/dev/null; then
+      echo "pre-commit: invalid JSON in $f" >&2
+      failed=1
+    fi
+  done
+else
+  echo "pre-commit: jq not installed, skipping JSON validation" >&2
+fi
+
+# --- Plugin structure ---
+if [ ! -f "$ROOT/.claude-plugin/plugin.json" ]; then
+  echo "pre-commit: missing .claude-plugin/plugin.json" >&2
+  failed=1
+fi
+if [ ! -f "$ROOT/hooks/hooks.json" ]; then
+  echo "pre-commit: missing hooks/hooks.json" >&2
+  failed=1
+fi
+
+exit $failed

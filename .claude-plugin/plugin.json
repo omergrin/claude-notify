@@ -1,0 +1,10 @@
+{
+  "name": "claude-notify",
+  "description": "macOS desktop notifications for Claude Code with click-to-focus support",
+  "version": "1.0.0",
+  "author": {
+    "name": "Omer Grinboim"
+  },
+  "license": "MIT",
+  "keywords": ["notifications", "macos", "desktop", "terminal"]
+}
