@@ -7,14 +7,14 @@ Get notified when Claude finishes work or needs your input. Click the notificati
 ## Installation
 
 ```bash
-claude plugin marketplace add omergrin/-claude-notify
+claude plugin marketplace add omergrin/claude-notify
 claude plugin install claude-notify
 ```
 
 Or install manually:
 
 ```bash
-git clone https://github.com/omergrin/-claude-notify.git ~/claude-notify
+git clone https://github.com/omergrin/claude-notify.git ~/claude-notify
 claude plugin add ~/claude-notify
 ```
 
